@@ -14,7 +14,15 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepossitory authorRepossitory;
 
     public AuthorServiceImpl(AuthorRepossitory authorRepossitory) {
+
         this.authorRepossitory = authorRepossitory;
+
+        if(this.authorRepossitory.findAll().isEmpty()){
+
+            this.authorRepossitory.save(new author("Blaze", "Koneski", countryService.findById(0L).get()));
+            this.authorRepossitory.save(new author("Kiko", "Chausoski", countryService.findById(1L).get()));
+
+        }
     }
 
     @Override

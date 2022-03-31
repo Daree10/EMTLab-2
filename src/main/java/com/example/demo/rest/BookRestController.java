@@ -2,11 +2,15 @@ package com.example.demo.rest;
 
 import com.example.demo.data.enumerations.Category;
 import com.example.demo.data.model.Book;
+import com.example.demo.data.model.Country;
+import com.example.demo.data.model.author;
 import com.example.demo.services.AuthorService;
 import com.example.demo.services.BookService;
+import com.example.demo.services.CountryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -17,24 +21,15 @@ public class BookRestController {
 
     private final AuthorService authorService;
 
+    private final CountryService countryService;
 
 
-    public BookRestController(BookService bookService, AuthorService authorService) {
+
+    public BookRestController(BookService bookService, AuthorService authorService, CountryService countryService) {
 
         this.bookService = bookService;
         this.authorService = authorService;
-
-        if(this.authorService.getAuthors().isEmpty()){
-
-            authorService
-
-        }
-
-        if(this.bookService.getBooks().isEmpty()){
-
-            this.bookService.save(new Book("Grdoto Pajce", 3, Category.FANTASY, Authors.get(0)));
-
-        }
+        this.countryService = countryService;
 
     }
 
@@ -51,6 +46,25 @@ public class BookRestController {
         return this.bookService.findById(id)
                 .map(book-> ResponseEntity.ok().body(book))
                 .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @PostConstruct
+    public void init(){
+
+
+
+
+
+
+
+        if(this.bookService.getBooks().isEmpty()){
+
+            this.bookService.save(new Book("Grdoto Pajce", 3, Category.FANTASY, authorService.findById(0L).get()));
+            this.bookService.save(new Book("Hajdi", 21, Category.FANTASY, authorService.findById(1L).get()));
+
+        }
+
+
     }
 
     /*@PostMapping("save")

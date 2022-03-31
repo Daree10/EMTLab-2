@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 public class DataHolder {
 
+/*
     public static List<Book> Books = new ArrayList<>();
 
     public static List<author> Authors = new ArrayList<>();
@@ -42,5 +43,6 @@ public class DataHolder {
 
         Books.add(new Book("AOK", 2, Category.THRILER, Authors.get(2)));
     }
+*/
 
 }
