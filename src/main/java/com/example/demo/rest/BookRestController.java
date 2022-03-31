@@ -56,13 +56,13 @@ public class BookRestController {
 
 
 
-
+/*
         if(this.bookService.getBooks().isEmpty()){
 
             this.bookService.save(new Book("Grdoto Pajce", 3, Category.FANTASY, authorService.findById(0L).get()));
             this.bookService.save(new Book("Hajdi", 21, Category.FANTASY, authorService.findById(1L).get()));
 
-        }
+        }*/
 
 
     }

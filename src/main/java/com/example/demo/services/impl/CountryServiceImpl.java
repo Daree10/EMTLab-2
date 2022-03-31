@@ -29,6 +29,7 @@ public class CountryServiceImpl implements CountryService {
 
         return countryRepository.findAll();
 
+
     }
 
     @Override
@@ -39,7 +40,14 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Optional<Country> save(Country b) {
-        countryRepository.save(b);
-        return Optional.of(b);
+        //countryRepository.save(b);
+        return Optional.of(this.countryRepository.save(b));
     }
+
+    @Override
+    public void deleteById(Long id) {
+        this.countryRepository.deleteById(id);
+    }
+
+
 }

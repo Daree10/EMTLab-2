@@ -19,7 +19,6 @@ public class Country {
     private String continent;
 
     public Country(String name, String continent) {
-        //this.id = (long)(Math.random()*1000);
         this.name = name;
         this.continent = continent;
     }
