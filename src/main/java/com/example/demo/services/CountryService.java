@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.data.dto.CountryDto;
 import com.example.demo.data.model.Book;
 import com.example.demo.data.model.Country;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public interface CountryService {
     Optional<Country> findById(Long id);
 
     Optional<Country> save(Country b);
+
+    Optional<Country> edit(Long id, CountryDto c);
 
     void deleteById(Long id);
 }
