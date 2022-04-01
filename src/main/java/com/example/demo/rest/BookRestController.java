@@ -1,5 +1,7 @@
 package com.example.demo.rest;
 
+import com.example.demo.data.dto.BookDto;
+import com.example.demo.data.dto.CountryDto;
 import com.example.demo.data.enumerations.Category;
 import com.example.demo.data.model.Book;
 import com.example.demo.data.model.Country;
@@ -48,26 +50,32 @@ public class BookRestController {
                 .orElseGet(()-> ResponseEntity.notFound().build());
     }
 
-    @PostConstruct
-    public void init(){
 
+    @PostMapping("/add")
+    public ResponseEntity<Book> save (@RequestBody BookDto book){
 
-
-
-
-
-/*
-        if(this.bookService.getBooks().isEmpty()){
-
-            this.bookService.save(new Book("Grdoto Pajce", 3, Category.FANTASY, authorService.findById(0L).get()));
-            this.bookService.save(new Book("Hajdi", 21, Category.FANTASY, authorService.findById(1L).get()));
-
-        }*/
-
-
+        return this.bookService.save(book.name, book.copies, book.category, book.authorId)
+                .map(b -> ResponseEntity.ok().body(b))
+                .orElseGet(()-> ResponseEntity.badRequest().build());
     }
 
-    /*@PostMapping("save")
-    public ResponseEntity<Book> Save()*/
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Book> delete(@PathVariable Long id){
+
+        if(this.bookService.findById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        this.bookService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Book> edit(@PathVariable Long id, @RequestBody BookDto bookDto){
+
+        return this.bookService.edit(id, bookDto)
+                .map(c -> ResponseEntity.ok().body(c))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
 
 }
